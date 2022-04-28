@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqsboto3-flask-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sqsboto3-flask-pod
+  template:
+    metadata:
+      labels:
+        app: sqsboto3-flask-pod
+    spec:
+      containers:
+      - name: sqsboto3-flask
+        image: guruprasadrane/sqsboto3flaskapp:latest
+        resources:
+          limits:
+            memory: "300Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 5000
+        envFrom:
+          - secretRef:
+              name: sqsboto3-flask-secret
